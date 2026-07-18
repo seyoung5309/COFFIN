@@ -1,0 +1,53 @@
+.coffee-card {
+  width: 17.5rem;
+  height: 23.25rem;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #E9E9E9;
+  cursor: pointer;
+  background: white;
+}
+
+.coffee-card__image {
+  height: 16.875rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fffef3;
+}
+
+.coffee-card__image img {
+  width: 80%;
+  object-fit: contain;
+}
+
+.coffee-card__info {
+  padding: 1.125rem 1.375rem 1.375rem 1.375rem;
+  height: 6.375rem;
+}
+
+.coffee-card__brand {
+  color: #777;
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.coffee-card__caffeine {
+  color: #42665d;
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+
+.coffee-card__bottom {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.coffee-card__name {
+  font-size: 1rem;
+}
+
+.coffee-card__price {
+  font-size: 0.875rem;
+}
