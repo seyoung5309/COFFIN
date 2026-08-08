@@ -1,0 +1,98 @@
+.quick-link {
+	padding: 140px 40px 190px;
+	text-align: center;
+	background: #ffffff;
+}
+
+.ql-title {
+	color: #335E54;
+	font-size: 2.5rem;
+	font-weight: 600;
+	margin-bottom: 56px;
+}
+
+.ql-cards {
+	display: flex;
+	gap: 48px;
+	justify-content: center;
+	align-items: flex-start;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.ql-card {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+
+.ql-card-inner {
+	display: flex;
+	width: 310px;
+	height: 180px;
+	padding: 44px 24px 8px 40px;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.25rem;
+	border-radius: 8px;
+	border: 1px solid #C7C7C7;
+	background: #FFF;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+	transition: transform 180ms ease, box-shadow 180ms ease;
+	position: relative;
+}
+
+.ql-card-inner h3 {
+	color: #2f6b5d;
+	font-size: 22px;
+	font-weight: 700;
+}
+
+.ql-card-inner p {
+	color: #7a7a7a;
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+.ql-arrow {
+	position: absolute;
+	right: 20px;
+	bottom: 18px;
+	color: #6b6b6b;
+	font-size: 26px;
+}
+
+.ql-card:hover .ql-card-inner {
+	transform: translateY(-8px);
+	box-shadow: 0 18px 36px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 960px) {
+	.ql-cards {
+		flex-wrap: wrap;
+		gap: 24px;
+		justify-content: center;
+	}
+	.ql-card-inner {
+		width: calc(50% - 12px);
+		height: 160px;
+		padding: 20px 20px 8px 28px;
+		gap: 20px;
+	}
+}
+
+@media (max-width: 560px) {
+	.ql-card-inner {
+		width: 100%;
+		height: auto;
+		padding: 18px 18px 12px 20px;
+		gap: 12px;
+	}
+	.ql-title {
+		font-size: 28px;
+	}
+	.quick-link {
+		padding: 84px 20px 112px;
+	}
+}
+
