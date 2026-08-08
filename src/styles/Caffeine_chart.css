@@ -4,24 +4,24 @@
   margin: 6.25rem auto;
 }
 
-.title {
+.caffeine-chart .title {
   text-align: center;
   margin-bottom: 1.625rem;
 }
 
-.title h1 {
+.caffeine-chart .title h1 {
   color: #42665d;
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
-.title p {
+.caffeine-chart .title p {
   color: #777;
   font-size: 1.5rem;
 }
 
 .ment {
-  margin-bottom: 2rem;
+  margin-left: 4rem;
 }
 
 .ment p:first-child {

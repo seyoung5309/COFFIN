@@ -1,0 +1,76 @@
+.promotion-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  
+  /* 
+    [가로 크기] 
+    - 모니터(1920px): 최대 340px
+    - 노트북(1080px): 약 260px~280px 자동 조절
+    - 모바일/작은 화면: 최소 240px 보장
+  */
+  width: clamp(240px, 17.7vw, 340px);
+  
+  /* [세로 크기] 카드 가로 비율에 맞춰 높이도 가변 조절 */
+  height: clamp(420px, 30.2vw, 580px);
+  
+  border-radius: 15px;
+  border: 1px solid #C7C7C7;
+  background: #FFF;
+  overflow: hidden;
+  box-sizing: border-box;
+  
+  /* 카드가 살짝 떠오르는 부드러운 애니메이션 효과 (선택사항) */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.promotion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 이미지 영역 (전체 높이의 약 68% 비율 유지) */
+.promotion-card__image-wrapper {
+  width: 100%;
+  height: clamp(280px, 20.8vw, 400px);
+  overflow: hidden;
+}
+
+.promotion-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 텍스트 영역 */
+.promotion-card__content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 20px 20px 20px;
+  box-sizing: border-box;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.promotion-card__title {
+  /* 글씨 크기도 폰 화면~대형 모니터까지 자연스럽게 가변 (16px ~ 20px) */
+  font-size: clamp(16px, 1.04vw, 20px);
+  font-weight: 700;
+  line-height: 1.4;
+  color: #111111;
+  margin: 0 0 8px 0;
+  
+  /* 두 줄 넘어가면 ... 생략 처리 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.promotion-card__brand {
+  font-size: clamp(12px, 0.73vw, 14px);
+  color: #888888;
+}

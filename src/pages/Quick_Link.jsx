@@ -4,7 +4,7 @@ import '../styles/Quick_Link.css';
 
 const cards = [
 	{ title: '지도', desc: '우리 동네 주변 카페 확인하기', link: '#' },
-	{ title: '프로모션', desc: '우리 동네 주변 카페 확인하기', link: '#' },
+	{ title: '프로모션', desc: '우리 동네 주변 카페 확인하기', link: '/promotion' },
 	{ title: '카페인 차트', desc: '우리 동네 주변 카페 확인하기', link: '#' },
 ];
 
