@@ -12,7 +12,7 @@ function Header() {
 
   const handleSearch = (e) => {
     if (e.key === "Enter" && query.trim()) {
-      navigate(`/caffeine-chart?q=${encodeURIComponent(query.trim())}`);
+      navigate("/cafe-details");
       setQuery("");
     }
   };
@@ -36,8 +36,8 @@ function Header() {
 
           <nav className="nav-links">
             {menus.map((menu) => (
-              <Link 
-                key={menu.path} 
+              <Link
+                key={menu.path}
                 to={menu.path}
                 className={location.pathname === menu.path ? "active" : ""}
               >
