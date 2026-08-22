@@ -1,0 +1,100 @@
+.cafe-slider {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* 카드가 나열되는 트랙 - overflow-x + scroll-snap 조합 */
+.cafe-slider-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 8px 4px;
+  scrollbar-width: none; /* Firefox: 스크롤바 숨김 */
+}
+
+.cafe-slider-track::-webkit-scrollbar {
+  display: none; /* Chrome, Safari: 스크롤바 숨김 */
+}
+
+.cafe-card {
+  flex: 0 0 240px;
+  scroll-snap-align: start;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  overflow: hidden;
+}
+
+.cafe-card-image {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FEFFF4;
+  ;
+}
+
+.cafe-card-image img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.cafe-card-info {
+  padding: 12px 16px 16px;
+}
+
+.cafe-card-brand {
+  font-size: 12px;
+  color: #888;
+}
+
+.cafe-card-caffeine {
+  font-size: 13px;
+  font-weight: 700;
+  color: #335E54;
+  margin: 4px 0;
+}
+
+.cafe-card-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #000000;
+}
+
+/* 화살표 버튼 공통 스타일 */
+.cafe-slider-arrow {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  color: #333;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.cafe-slider-arrow--left {
+  left: 0;
+}
+
+.cafe-slider-arrow--right {
+  right: 0;
+}
+
+/* 더 이상 스크롤할 수 없을 때 (비활성 상태) */
+.cafe-slider-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
