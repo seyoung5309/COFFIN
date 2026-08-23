@@ -37,20 +37,7 @@ export const getSortedCoffee = async (sortType) => {
   const sort = sortMap[sortType];
   if (!sort) return { error: { message: "유효하지 않은 정렬 기준." } };
 
-  // price는 coffee_franchise에 있어서 조인 필요
-  if (sortType === "highPrice" || sortType === "lowPrice") {
-    const { data, error } = await supabase
-      .from("coffee")
-      .select("*, coffee_franchise(price)")
-      .order("price", {
-        referencedTable: "coffee_franchise",
-        ascending: sort.ascending,
-      });
-
-    if (error) return { error };
-    return { data };
-  }
-
+  // price도 이제 coffee 테이블 자체 컬럼이라 조인 없이 바로 정렬 가능
   const { data, error } = await supabase
     .from("coffee")
     .select("*")
@@ -152,19 +139,10 @@ export const getRelatedCoffee = async (coffeeName) => {
 // 프랜차이즈에 따른 커피 목록 불러오기
 export const getCoffeeByFranchise = async (franchiseId) => {
   const { data, error } = await supabase
-    .from("coffee_franchise")
-    .select("coffee(*), caffeine, price, link")
+    .from("coffee")
+    .select("*")
     .eq("franchise_id", franchiseId);
 
   if (error) return { error };
-
-  // 프론트에서 쓰기 편하게 평탄화
-  const flatData = data.map(({ coffee, caffeine, price, link }) => ({
-    ...coffee,
-    caffeine,
-    price,
-    link,
-  }));
-
-  return { data: flatData };
+  return { data };
 };

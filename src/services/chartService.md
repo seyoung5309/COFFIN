@@ -78,6 +78,8 @@ if (error) {
 | `"lowPrice"`     | 저가순                    |
 | `"nameAsc"`      | 가나다순                  |
 
+> `price`가 `coffee` 테이블 자체 컬럼으로 옮겨오면서, `highPrice` / `lowPrice`도 다른 정렬과 동일하게 조인 없이 바로 처리된다.
+
 ---
 
 ## 인기순 커피 목록 불러오기
@@ -183,25 +185,27 @@ if (error) {
   console.error("프랜차이즈 커피 불러오기 실패");
 } else {
   console.log("프랜차이즈 커피 목록:", data);
-  // data[0].price, data[0].caffeine, data[0].link 접근 가능
+  // data[0].price, data[0].caffeine 접근 가능 (별도 평탄화 불필요)
 }
 ```
+
+> 이제 `coffee.franchise_id`로 바로 필터링하며, 반환값은 `coffee` 테이블 원본 컬럼 그대로다. `link` 필드는 더 이상 제공되지 않는다.
 
 ---
 
 ## 반환값 구조 요약
 
-| 함수                   | 성공 시 반환                                      | 실패 시 반환 |
-| ---------------------- | ------------------------------------------------- | ------------ |
-| `getAllCoffee`         | `{ data: Coffee[] }`                              | `{ error }`  |
-| `searchCoffee`         | `{ data: Coffee[] }`                              | `{ error }`  |
-| `getSortedCoffee`      | `{ data: Coffee[] }`                              | `{ error }`  |
-| `getPopularCoffee`     | `{ data: Coffee[] }` (likeCount 포함)             | `{ error }`  |
-| `getRandomCoffee`      | `{ data: Coffee[] }`                              | `{ error }`  |
-| `getLatestCoffee`      | `{ data: Coffee[] }`                              | `{ error }`  |
-| `getCoffeeBySugar`     | `{ data: Coffee[] }`                              | `{ error }`  |
-| `getRelatedCoffee`     | `{ data: Coffee[] }`                              | `{ error }`  |
-| `getCoffeeByFranchise` | `{ data: Coffee[] }` (caffeine, price, link 포함) | `{ error }`  |
+| 함수                   | 성공 시 반환                                | 실패 시 반환 |
+| ---------------------- | ------------------------------------------- | ------------ |
+| `getAllCoffee`         | `{ data: Coffee[] }`                        | `{ error }`  |
+| `searchCoffee`         | `{ data: Coffee[] }`                        | `{ error }`  |
+| `getSortedCoffee`      | `{ data: Coffee[] }`                        | `{ error }`  |
+| `getPopularCoffee`     | `{ data: Coffee[] }` (likeCount 포함)       | `{ error }`  |
+| `getRandomCoffee`      | `{ data: Coffee[] }`                        | `{ error }`  |
+| `getLatestCoffee`      | `{ data: Coffee[] }`                        | `{ error }`  |
+| `getCoffeeBySugar`     | `{ data: Coffee[] }`                        | `{ error }`  |
+| `getRelatedCoffee`     | `{ data: Coffee[] }`                        | `{ error }`  |
+| `getCoffeeByFranchise` | `{ data: Coffee[] }` (caffeine, price 포함) | `{ error }`  |
 
 ---
 
@@ -211,6 +215,7 @@ if (error) {
 {
   id: 1,
   name: "아메리카노",
+  price: 4500,
   intro: "진한 에스프레소에 물을 더한 커피",
   caffeine: 125.0,
   saturated_fat: 0.0,
@@ -218,13 +223,12 @@ if (error) {
   natrium: 1.5,
   protein: 1.0,
   img: "https://...",
+  franchise_id: 1,
   created_at: "2026-03-31T00:00:00+00:00",
-
-  // getCoffeeByFranchise 사용 시 추가
-  price: 4500,
-  link: "https://...",
 
   // getPopularCoffee 사용 시 추가
   likeCount: 32,
 }
 ```
+
+> `price`는 이제 스키마 변경으로 모든 함수 결과에 기본 포함된다 (예전처럼 `getCoffeeByFranchise`에서만 추가되는 필드가 아님). `link`는 스키마에서 삭제되어 어떤 함수에서도 반환되지 않는다.

@@ -22,7 +22,8 @@ if (error) {
   console.error("상세 정보 불러오기 실패");
 } else {
   console.log("커피 상세 정보:", data);
-  // data.coffee_franchise → 프랜차이즈별 가격/카페인/링크
+  // data.price, data.caffeine 등 → coffee 테이블 자체 컬럼 (최상위)
+  // data.franchise → 소속 프랜차이즈 { id, name }
   // data.coffee_category → 소속 카테고리 목록
   // data.comment → 최신순으로 정렬된 댓글 목록 (likeCount 포함)
 }
@@ -32,11 +33,14 @@ if (error) {
 
 #### 함께 불러오는 연관 데이터
 
-| 필드               | 설명                                                                              |
-| ------------------ | --------------------------------------------------------------------------------- |
-| `coffee_franchise` | 프랜차이즈별 `caffeine`, `price`, `link`, `franchise { id, name }`                |
-| `coffee_category`  | 해당 커피가 속한 `category { id, name }` 목록                                     |
-| `comment`          | 최신순 정렬된 댓글 목록. 각 댓글에 `likeCount` 추가, 원본 `comment_like`는 제거됨 |
+| 필드              | 설명                                                                              |
+| ----------------- | --------------------------------------------------------------------------------- |
+| `franchise`       | 소속 프랜차이즈 `{ id, name }` (커피 1개당 프랜차이즈 1개, 배열 아님)             |
+| `coffee_category` | 해당 커피가 속한 `category { id, name }` 목록                                     |
+| `comment`         | 최신순 정렬된 댓글 목록. 각 댓글에 `likeCount` 추가, 원본 `comment_like`는 제거됨 |
+
+> `price`, `caffeine`, `saturated_fat`, `sugar`, `natrium`, `protein`, `img` 등은 `coffee` 테이블 자체 컬럼이라 별도 중첩 없이 최상위에서 바로 접근한다 (예: `data.price`).
+> 이전에는 프랜차이즈별로 가격/카페인이 여러 개 있을 수 있었지만, 스키마 변경으로 커피 1개는 프랜차이즈 1곳에만 속하며 `link`(프랜차이즈 링크) 필드는 더 이상 제공되지 않는다.
 
 ---
 
@@ -82,6 +86,7 @@ if (error) {
 {
   id: 1,
   name: "바닐라 라떼",
+  price: 5700,
   intro: "라떼에 바닐라를 넣은.",
   caffeine: 205.0,
   saturated_fat: 0.0,
@@ -91,14 +96,7 @@ if (error) {
   img: "https://...",
   created_at: "2026-06-16T00:00:00+00:00",
 
-  coffee_franchise: [
-    {
-      caffeine: 205.0,
-      price: 5700,
-      link: "https://...",
-      franchise: { id: 1, name: "투썸플레이스" },
-    },
-  ],
+  franchise: { id: 1, name: "투썸플레이스" },
 
   coffee_category: [
     {
