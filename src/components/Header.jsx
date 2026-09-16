@@ -19,7 +19,7 @@ function Header() {
 
   const menus = [
     { name: "홈", path: "/" },
-    { name: "지도", path: "/map-page" },
+    { name: "지도", path: "/map" },
     { name: "프로모션", path: "/promotion" },
     { name: "카페인 차트", path: "/caffeine-chart" },
   ];
