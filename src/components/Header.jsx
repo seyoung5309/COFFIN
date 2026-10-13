@@ -12,7 +12,9 @@ function Header() {
 
   const handleSearch = (e) => {
     if (e.key === "Enter" && query.trim()) {
-      navigate("/cafe-details");
+      navigate("/cafe-details",{
+        state: {searchQuery : query}
+      });
       setQuery("");
     }
   };
