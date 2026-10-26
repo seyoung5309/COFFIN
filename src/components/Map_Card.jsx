@@ -4,7 +4,7 @@ import star from "../assets/star.svg";
 function Map_Card({ pic, name, place, review, meter }) {
     return (
         <div>   
-            <img src={pic} alt="" class="card-img"/>
+            <img src={pic} alt="" className="card-img"/>
             <div className="info">
                 <h3 className="name">{name} <img src={star} alt="" className="star"/></h3>
                 <p className="place">{place}</p>
