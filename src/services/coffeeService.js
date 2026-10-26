@@ -7,14 +7,9 @@ export const getCoffeeDetail = async (coffeeId) => {
     .select(
       `
       *,
-      coffee_franchise (
-        caffeine,
-        price,
-        link,
-        franchise (
-          id,
-          name
-        )
+      franchise (
+        id,
+        name
       ),
       coffee_category (
         category (
