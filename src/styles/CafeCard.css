@@ -1,0 +1,88 @@
+.cafe-card {
+    width: 755px;
+    margin: 0 auto 32px;
+    border: 1px solid #dcdcdc;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.cafe-card-image {
+    height: 400px;
+    background: #f8f9d4;
+}
+
+.cafe-card-actions {
+    display: flex;
+    border-bottom: 1px solid #dcdcdc;
+    padding: 14px 0;
+}
+
+.cafe-card-actions button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cafe-card-actions button + button {
+    border-left: 1px solid #dcdcdc;
+}
+
+.cafe-card-info {
+    padding: 24px 43px 36px;
+}
+
+.cafe-card-info h3 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.cafe-card-category {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.cafe-card-rating {
+    margin: 8px 0 24px;
+    font-size: 14px;
+    color: #666;
+}
+
+.cafe-card-info ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cafe-card-info li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: #666;
+}
+
+.cafe-card-copy {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #1a73e8;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cafe-card-status {
+    text-align: center;
+    color: #666;
+    margin-bottom: 32px;
+}
