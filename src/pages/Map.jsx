@@ -4,22 +4,69 @@ import "../styles/Map.css";
 import Search_icon from "../assets/Search_icon.svg";
 import speaker from "../assets/speaker.svg";
 import map_background from "../assets/map_result_back.svg";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { loadKakaoMap } from "../lib/kakaoMap";
+import { searchCafes } from "../services/kakaoService";
 
 function Map() {
     const [query, setQuery] = useState("");
     const [isOpen, setIsOpen] = useState(true);
-    const navigate = useNavigate();
+    const [searched, setSearched] = useState("");
+    const [cafes, setCafes] = useState([]);
+    const [message, setMessage] = useState("카페를 검색해 보세요.");
+    const [mapReady, setMapReady] = useState(false);
+    const mapEl = useRef(null);
+    const mapRef = useRef(null);
 
-    const handleSearch = (e) => {
-        if (e.key === "Enter" && query.trim()) {
-            navigate("/cafe-details");
-            setQuery("");
+    // 지도 생성 (처음에는 한양대 ERICA 근처)
+    useEffect(() => {
+        let ignore = false;
+        loadKakaoMap()
+            .then((kakao) => {
+                if (ignore) return;
+                mapRef.current = new kakao.maps.Map(mapEl.current, {
+                    center: new kakao.maps.LatLng(37.2966, 126.835),
+                    level: 5,
+                });
+                setMapReady(true);
+            })
+            .catch((e) => {
+                console.error(e);
+                if (!ignore) setMessage("지도를 불러오지 못했어요.");
+            });
+        return () => { ignore = true; };
+    }, []);
+
+    // 검색 결과가 바뀌면 마커를 다시 그리고 결과가 다 보이게 지도를 맞춘다.
+    useEffect(() => {
+        if (!mapReady || cafes.length === 0) return;
+        const { kakao } = window;
+        const map = mapRef.current;
+        const bounds = new kakao.maps.LatLngBounds();
+        const markers = cafes.map((cafe) => {
+            const position = new kakao.maps.LatLng(cafe.lat, cafe.lng);
+            bounds.extend(position);
+            return new kakao.maps.Marker({ map, position, title: cafe.name });
+        });
+        map.setBounds(bounds);
+        return () => markers.forEach((m) => m.setMap(null));
+    }, [cafes, mapReady]);
+
+    const handleSearch = async (e) => {
+        if (e.key !== "Enter" || !query.trim()) return;
+        const keyword = query.trim();
+        setSearched(keyword);
+        setMessage("검색 중...");
+        setCafes([]);
+        try {
+            const result = await searchCafes(keyword, 15);
+            setCafes(result);
+            setMessage(result.length === 0 ? "검색 결과가 없어요." : "");
+        } catch (err) {
+            console.error(err);
+            setMessage("검색에 실패했어요. 잠시 후 다시 시도해 주세요.");
         }
     };
-
-    const dummyList = [1, 2, 3, 4, 5, 6];
 
     return (
         <div className="map-page">
@@ -40,7 +87,7 @@ function Map() {
                     </div>
 
                     {/* 지역명 */}
-                    <h3 className="result-place">관악구 신림동</h3>
+                    <h3 className="result-place">{searched ? `'${searched}' 검색 결과` : "카페 검색"}</h3>
 
                     {/* 할인/공지 배너 */}
                     <div className="sale-banner">
@@ -50,14 +97,15 @@ function Map() {
 
                     {/* 스크롤 가능한 검색 결과 리스트 */}
                     <div className="search-result">
-                        {dummyList.map((_, i) => (
+                        {message && <p>{message}</p>}
+                        {cafes.map((cafe) => (
                             <Map_Card
-                                key={i}
+                                key={cafe.id}
                                 pic={map_background}
-                                name="성수동 대림창고 갤러리"
-                                place="서울특별시 성동구 성수이로 78"
-                                review="리뷰 5,000"
-                                meter="1.4km"
+                                name={cafe.name}
+                                place={cafe.address}
+                                review={cafe.phone}
+                                meter=""
                             />
                         ))}
                     </div>
@@ -70,7 +118,7 @@ function Map() {
 
                 {/* 지도 영역 */}
                 <div className="map-container">
-                    {/* 네이버 지도 API 영역 */}
+                    <div ref={mapEl} style={{ width: "100%", height: "100%" }} />
                 </div>
             </div>
         </div>

@@ -23,5 +23,7 @@ export async function searchCafes(query, size = 5) {
     address: d.road_address_name || d.address_name,
     phone: d.phone,
     url: d.place_url,
+    lng: Number(d.x),
+    lat: Number(d.y),
   }));
 }
