@@ -4,18 +4,18 @@
   margin: 6.25rem auto;
 }
 
-.caffeine-chart .title {
+.caffeine-chart__title {
   text-align: center;
   margin-bottom: 1.625rem;
 }
 
-.caffeine-chart .title h1 {
+.caffeine-chart__title h1 {
   color: #42665d;
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
-.caffeine-chart .title p {
+.caffeine-chart__title p {
   color: #777;
   font-size: 1.5rem;
 }
@@ -39,8 +39,9 @@
 /* 슬라이드 */
 /* ======================= */
 
-.slider-wrapper {
+.caffeine-chart__slider {
   position: relative;
+  padding: 2.5rem 3.75rem; /* 화살표가 화면 밖으로 나가지 않게 양옆 여백 */
 }
 
 .coffee-list {

@@ -1,0 +1,32 @@
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 10rem 1rem;
+  text-align: center;
+}
+
+.coming-soon__title {
+  font-size: 2rem;
+  color: #335E54;
+}
+
+.coming-soon__desc {
+  font-size: 1.125rem;
+  color: #777;
+}
+
+.coming-soon__button {
+  margin-top: 1.5rem;
+  padding: 0.875rem 1.75rem;
+  border: 2px solid #335E54;
+  border-radius: 999px;
+  color: #335E54;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.coming-soon__button:hover {
+  opacity: .9;
+}

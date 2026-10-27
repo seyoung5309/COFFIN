@@ -33,7 +33,7 @@ function Caffeine_chart() {
 
   return (
     <section className="caffeine-chart">
-      <div className="title">
+      <div className="caffeine-chart__title">
         <h1>CAFFEINE CHART</h1>
         <p>당신에게 맞는 커피 정보를 확인해 보세요</p>
       </div>
@@ -43,7 +43,7 @@ function Caffeine_chart() {
         <h2>오늘의 추천 커피</h2>
       </div>
 
-      <div className="slider-wrapper">
+      <div className="caffeine-chart__slider">
 
         <button className="arrow left" onClick={handlePrev}>
           &#10094;

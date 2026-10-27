@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import "../styles/Coffee_Collection.css";
 import iimg from "../assets/ExCoffee.svg";
 
@@ -36,7 +36,7 @@ function Coffee_Collection() {
   };
 
   return (
-    <div className="slider-wrapper">
+    <div className="coffee-collection">
 
       {/* 왼쪽 화살표 */}
       <button
@@ -50,7 +50,7 @@ function Coffee_Collection() {
 
         {/* 왼쪽 텍스트 */}
         <div className="text-section">
-          <h2 className="title">
+          <h2 className="coffee-collection__title">
             당 땡길때 먹어야하는
             <br />
             커피 모음

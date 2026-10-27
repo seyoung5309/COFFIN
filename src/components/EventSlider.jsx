@@ -1,8 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PromotionCard from '../components/PromotionCard';
 
-function EventSlider({ title, icon, events }) {
-  if (!events || events.length === 0) return null;
+// events가 바뀔 때 위치를 초기화하려면 부모에서 key를 바꿔 새로 마운트한다.
+function EventSlider({ title, icon, events = [] }) {
+  // 원본 데이터가 시작하는 중앙 인덱스 위치
+  const startIndex = events.length;
+
+  // 훅은 early return보다 먼저 호출해야 렌더마다 순서가 같다.
+  const [currentIndex, setCurrentIndex] = useState(startIndex);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+
+  if (events.length === 0) return null;
 
   // 1. 무한 루프를 위해 배열을 3 세트로 확장 [이전 복사본, 원본, 다음 복사본]
   const extendedEvents = [
@@ -11,22 +19,10 @@ function EventSlider({ title, icon, events }) {
     ...events.map((item) => ({ ...item, _key: `next-${item.id}` })),
   ];
 
-  // 원본 데이터가 시작하는 중앙 인덱스 위치
-  const startIndex = events.length;
-
-  const [currentIndex, setCurrentIndex] = useState(startIndex);
-  const [isTransitioning, setIsTransitioning] = useState(true);
-
   /* 카드 너비(320px) + 간격(20px) = 340px */
   const CARD_WIDTH = 320;
   const GAP = 20;
   const STEP = CARD_WIDTH + GAP;
-
-  // 카테고리 변경 등으로 events가 바뀔 때 위치 초기화
-  useEffect(() => {
-    setIsTransitioning(false);
-    setCurrentIndex(events.length);
-  }, [events]);
 
   // 이전 버튼
   const handlePrev = () => {

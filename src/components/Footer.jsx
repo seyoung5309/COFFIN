@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../styles/Footer.css";
 import logo from '../assets/COFFIN_logo_Black.svg';
 import instagram from '../assets/Instagram_logo.svg';
@@ -35,10 +36,10 @@ function Footer() {
         </div>
         <div className="footer-left-section">
           <h4>서비스</h4>
-          <a href="/">홈</a>
-          <a href="/">지도</a>
-          <a href="/">프로모션</a>
-          <a href="/">카페인 차트</a>
+          <Link to="/">홈</Link>
+          <Link to="/map">지도</Link>
+          <Link to="/promotion">프로모션</Link>
+          <Link to="/caffeine-chart">카페인 차트</Link>
         </div>
         <div className="footer-left-section">
           <h4>파트너 지원</h4>

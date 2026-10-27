@@ -44,7 +44,7 @@
 }
 
 /* 검색창 */
-.search-box {
+.map-search-box {
     display: flex;
     align-items: center;
     background-color: #f3f4f6;
@@ -62,7 +62,7 @@
     opacity: 0.5;
 }
 
-.search-box input {
+.map-search-box input {
     border: none;
     background: transparent;
     outline: none;
