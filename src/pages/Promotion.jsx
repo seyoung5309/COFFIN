@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../styles/Promotion.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -23,6 +24,7 @@ const SNS_EVENTS = [
 ];
 
 function Promotion() {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState('전체');
   const categories = ['전체', '이벤트', '신메뉴', '신규오픈'];
 
@@ -84,7 +86,7 @@ function Promotion() {
         <img src={CoffinLogo} alt="COFFIN 로고" className="register-logo" />
         <h2>당신의 카페를 더 많은 사람들에게</h2>
         <p>신메뉴, 이벤트, 신규 오픈 소식을 사용자들에게 직접 알릴 수 있습니다.</p>
-        <button>프로모션 등록하기 →</button>
+        <button type="button" onClick={() => navigate("/promotion/register")}>프로모션 등록하기 →</button>
       </div>
 
 
