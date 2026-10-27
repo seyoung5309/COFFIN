@@ -9,7 +9,7 @@ const cards = [
 
 export default function Quick_Link() {
 	return (
-		<section className="quick-link">
+		<section className="quick-link" id="quick-link">
 			<h2 className="ql-title">서비스 바로가기</h2>
 
 			<div className="ql-cards">

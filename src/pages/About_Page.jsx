@@ -29,7 +29,12 @@ function About_Page() {
           </p>
         </div>
 
-        <button className="about-page__button" type="button">
+        {/* 바로 아래 '서비스 바로가기' 섹션으로 스크롤 */}
+        <button
+          className="about-page__button"
+          type="button"
+          onClick={() => document.getElementById("quick-link")?.scrollIntoView({ behavior: "smooth" })}
+        >
           더 알아보기 →
         </button>
       </div>
