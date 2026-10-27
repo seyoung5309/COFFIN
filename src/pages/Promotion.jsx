@@ -61,6 +61,7 @@ function Promotion() {
 
         {/* 1. 마감임박 이벤트 슬라이더 */}
         <EventSlider
+          key={`deadline-${activeCategory}`}
           title="마감임박 이벤트"
           events={filterEvents(DEADLINE_EVENTS)}
           icon={
@@ -72,6 +73,7 @@ function Promotion() {
 
         {/* 2. SNS 이벤트 슬라이더 */}
         <EventSlider
+          key={`sns-${activeCategory}`}
           title="SNS 이벤트"
           events={filterEvents(SNS_EVENTS)}
         />

@@ -1,5 +1,5 @@
 /* 전체 슬라이더 */
-.slider-wrapper {
+.coffee-collection {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +61,7 @@
 
 
 /* 제목 */
-.title {
+.coffee-collection__title {
   font-size: 2rem;
 
   color: #000;

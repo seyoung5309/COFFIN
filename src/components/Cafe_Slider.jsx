@@ -64,14 +64,14 @@ export default function Cafe_Slider({ coffees = [] }) {
         {coffees.map((c, i) => (
           // 데이터에 고유 id가 없어서 index를 key로 사용했습니다.
           // moreCoffee 배열에 id 필드를 추가할 수 있다면 그걸 key로 쓰는 게 더 안전해요.
-          <div key={i} className="cafe-card">
-            <div className="cafe-card-image">
+          <div key={i} className="cafe-slider-card">
+            <div className="cafe-slider-card-image">
               <img src={c.img} alt={c.name} />
             </div>
-            <div className="cafe-card-info">
-              <div className="cafe-card-brand">{c.brands}</div>
-              <div className="cafe-card-caffeine">카페인 함량 {c.caffeine} (mg)</div>
-              <div className="cafe-card-name">
+            <div className="cafe-slider-card-info">
+              <div className="cafe-slider-card-brand">{c.brands}</div>
+              <div className="cafe-slider-card-caffeine">카페인 함량 {c.caffeine} (mg)</div>
+              <div className="cafe-slider-card-name">
                 {c.name}&nbsp;&nbsp;{c.price.toLocaleString()}원
               </div>
             </div>

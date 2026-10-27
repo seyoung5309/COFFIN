@@ -75,7 +75,7 @@ function Map() {
                 {/* 좌측 검색 패널 */}
                 <div className={`search-panel ${isOpen ? "" : "closed"}`}>
                     {/* 검색창 */}
-                    <div className="search-box">
+                    <div className="map-search-box">
                         <img src={Search_icon} alt="검색" className="search-icon" />
                         <input
                             type="text"
