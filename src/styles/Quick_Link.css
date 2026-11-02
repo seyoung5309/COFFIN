@@ -20,15 +20,19 @@
 	margin: 0 auto;
 }
 
+/* 카드 폭은 .ql-card가 정하고(최대 310px, 좁으면 같이 줄어듦), 안쪽은 그 폭을 채운다 */
 .ql-card {
 	display: block;
+	flex: 0 1 310px;
+	min-width: 0;
 	text-decoration: none;
 	color: inherit;
 }
 
 .ql-card-inner {
 	display: flex;
-	width: 310px;
+	width: 100%;
+	box-sizing: border-box;
 	height: 180px;
 	padding: 44px 24px 8px 40px;
 	flex-direction: column;
@@ -73,8 +77,10 @@
 		gap: 24px;
 		justify-content: center;
 	}
+	.ql-card {
+		flex-basis: calc(50% - 12px);
+	}
 	.ql-card-inner {
-		width: calc(50% - 12px);
 		height: 160px;
 		padding: 20px 20px 8px 28px;
 		gap: 20px;
@@ -82,8 +88,10 @@
 }
 
 @media (max-width: 560px) {
+	.ql-card {
+		flex-basis: 100%;
+	}
 	.ql-card-inner {
-		width: 100%;
 		height: auto;
 		padding: 18px 18px 12px 20px;
 		gap: 12px;

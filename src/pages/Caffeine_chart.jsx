@@ -17,19 +17,17 @@ function Caffeine_chart() {
     { id: 6, brand: "빽다방", name: "원조커피", caffeine: 330, price: 3000, img: cimg },
   ];
 
-  const handleNext = () => {
-    listRef.current.scrollBy({
-      left: 1216, // 카드4개
-      behavior: "smooth",
-    });
+  // 지금 화면에 다 보이는 카드 수만큼 넘긴다 (화면 폭에 따라 1~4개)
+  const scrollPage = (dir) => {
+    const list = listRef.current;
+    const cardWidth = list.firstElementChild.offsetWidth;
+    const gap = parseFloat(getComputedStyle(list).columnGap) || 0;
+    const perPage = Math.max(1, Math.floor((list.clientWidth + gap) / (cardWidth + gap)));
+    list.scrollBy({ left: dir * perPage * (cardWidth + gap), behavior: "smooth" });
   };
 
-  const handlePrev = () => {
-    listRef.current.scrollBy({
-      left: -1216,
-      behavior: "smooth",
-    });
-  };
+  const handleNext = () => scrollPage(1);
+  const handlePrev = () => scrollPage(-1);
 
   return (
     <section className="caffeine-chart">

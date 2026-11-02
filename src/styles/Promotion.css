@@ -116,14 +116,17 @@
 }
 
 /* 카드 트랙 */
+/* 카드 크기와 간격은 여기서만 정한다. EventSlider의 이동 거리도 이 값을 쓴다. */
 .card-track {
+  --card-width: 280px;
+  --card-gap: 20px;
   display: flex;
-  gap: 20px;
+  gap: var(--card-gap);
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .card-item {
-  width: 320px;
+  width: var(--card-width);
   flex-shrink: 0;
 }
 
@@ -185,7 +188,7 @@
     width: 38px;
     height: 38px;
   }
-  .card-item {
-    width: 260px;
+  .card-track {
+    --card-width: 240px;
   }
 }

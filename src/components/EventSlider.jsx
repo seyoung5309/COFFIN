@@ -19,10 +19,8 @@ function EventSlider({ title, icon, events = [] }) {
     ...events.map((item) => ({ ...item, _key: `next-${item.id}` })),
   ];
 
-  /* 카드 너비(320px) + 간격(20px) = 340px */
-  const CARD_WIDTH = 320;
-  const GAP = 20;
-  const STEP = CARD_WIDTH + GAP;
+  // 한 칸 이동 거리 = 카드 너비 + 간격 (값은 Promotion.css의 .card-track 변수)
+  const STEP = "(var(--card-width) + var(--card-gap))";
 
   // 이전 버튼
   const handlePrev = () => {
@@ -73,7 +71,7 @@ function EventSlider({ title, icon, events = [] }) {
             className="card-track"
             onTransitionEnd={handleTransitionEnd}
             style={{
-              transform: `translateX(-${currentIndex * STEP}px)`,
+              transform: `translateX(calc(-${currentIndex} * ${STEP}))`,
               // 눈속임 이동(순간이동) 시에는 transition을 잠시 끕니다.
               transition: isTransitioning ? 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)' : 'none'
             }}

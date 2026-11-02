@@ -1,6 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import "../styles/Coffee_Collection.css";
 import iimg from "../assets/ExCoffee.svg";
+
+// 화면 폭에 따라 한 번에 보여줄 카드 개수 (Coffee_Collection.css의 미디어 쿼리와 같은 기준)
+const MOBILE_QUERY = '(max-width: 700px)';
+const TABLET_QUERY = '(max-width: 1100px)';
+const getVisibleSlides = () => {
+  if (window.matchMedia(MOBILE_QUERY).matches) return 1;
+  if (window.matchMedia(TABLET_QUERY).matches) return 2;
+  return 3;
+};
+
+function useVisibleSlides() {
+  const [visibleSlides, setVisibleSlides] = useState(getVisibleSlides);
+
+  // 창 크기가 바뀌면 다시 계산한다 (값이 같으면 React가 다시 그리지 않음)
+  useEffect(() => {
+    const update = () => setVisibleSlides(getVisibleSlides());
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  return visibleSlides;
+}
 
 function Coffee_Collection() {
   const mockDrinks = [
@@ -13,26 +35,23 @@ function Coffee_Collection() {
   ];
 
   // 한 번에 보여줄 카드 개수
-  const visibleSlides = 3;
-
-  // 현재 슬라이드 위치
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const visibleSlides = useVisibleSlides();
 
   // 최대 슬라이드 위치
   const maxSlide = mockDrinks.length - visibleSlides;
 
+  // 현재 슬라이드 위치 (화면이 넓어져 maxSlide가 줄면 그 안으로 맞춘다)
+  const [slideState, setCurrentSlide] = useState(0);
+  const currentSlide = Math.min(slideState, maxSlide);
+
   // 이전 슬라이드
   const handlePrev = () => {
-    setCurrentSlide((prev) =>
-      prev === 0 ? maxSlide : prev - 1
-    );
+    setCurrentSlide(currentSlide === 0 ? maxSlide : currentSlide - 1);
   };
 
   // 다음 슬라이드
   const handleNext = () => {
-    setCurrentSlide((prev) =>
-      prev === maxSlide ? 0 : prev + 1
-    );
+    setCurrentSlide(currentSlide === maxSlide ? 0 : currentSlide + 1);
   };
 
   return (
@@ -75,7 +94,9 @@ function Coffee_Collection() {
           <div
             className="image-section"
             style={{
-              transform: `translateX(-${currentSlide * 150}px)`,
+              // 한 칸 = (영역 너비 + 간격) / 보이는 카드 수
+              '--visible': visibleSlides,
+              transform: `translateX(calc(-${currentSlide} * (100% + var(--drink-gap)) / var(--visible)))`,
             }}
           >
             {mockDrinks.map((drink) => (

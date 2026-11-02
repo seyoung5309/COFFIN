@@ -1,5 +1,5 @@
 .coffee-card {
-  width: 17.5rem;
+  width: min(17.5rem, 100%); /* 목록이 카드보다 좁으면 목록 폭에 맞춘다 */
   height: 23.25rem;
   flex-shrink: 0;
   border-radius: 8px;
