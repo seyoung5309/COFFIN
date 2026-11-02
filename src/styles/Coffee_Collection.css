@@ -39,6 +39,7 @@
 .slider-container {
   display: flex;
   flex: 1;
+  min-width: 0; /* 내용이 길어도 화면 밖으로 밀리지 않게 */
 
   background-color: #ffffff;
   padding: 40px;
@@ -95,9 +96,10 @@
 }
 
 
-/* 이미지 슬라이드가 보이는 영역 */
+/* 이미지 슬라이드가 보이는 영역 (넓은 화면에서 최대 932px, 좁아지면 같이 줄어든다) */
 .image-section-wrapper {
-  width: 58.25rem;
+  flex: 0 1 58.25rem;
+  min-width: 0;
 
   overflow: hidden;
 }
@@ -105,9 +107,10 @@
 
 /* 이미지 카드 전체 */
 .image-section {
+  --drink-gap: 30px;
   display: flex;
 
-  gap: 30px;
+  gap: var(--drink-gap);
   align-items: center;
 
   /* 슬라이드 애니메이션 */
@@ -115,23 +118,21 @@
 }
 
 
-/* 각각의 음료 카드 */
+/* 각각의 음료 카드: 보이는 카드 수(--visible, JS에서 지정)만큼 영역을 나눠 갖는다 */
 .drink-card {
-  min-width: 120px;
+  flex: 0 0 calc((100% - (var(--visible) - 1) * var(--drink-gap)) / var(--visible));
+  min-width: 0;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  /* 카드가 줄어들지 않도록 설정 */
-  flex-shrink: 0;
 }
 
 
 /* 음료 이미지 */
 .drink-image {
-  width: 18.75rem;
-  height: 18.75rem;
+  width: 100%;
+  aspect-ratio: 1;
   object-fit: cover;
 }
 
@@ -144,4 +145,45 @@
   color: #333;
 
   white-space: nowrap;
+}
+
+/* 1100 이하: 제목을 위로, 카드 2개 */
+@media (max-width: 1100px) {
+  .slider-container {
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .text-section {
+    gap: 16px;
+  }
+
+  .image-section-wrapper {
+    flex: none;
+    width: 100%;
+  }
+}
+
+
+/* 700 이하: 카드 1개, 여백 줄이기 */
+@media (max-width: 700px) {
+  .coffee-collection {
+    gap: 8px;
+    padding: 24px 12px;
+  }
+
+  .nav-button {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .slider-container {
+    padding: 16px 8px;
+  }
+
+  .coffee-collection__title {
+    font-size: 1.5rem;
+  }
 }

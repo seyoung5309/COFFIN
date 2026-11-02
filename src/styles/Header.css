@@ -189,3 +189,29 @@
     font-size: 0.875rem;
   }
 }
+/* 480 이하: 로고·메뉴·프로필이 한 줄에 들어가게 줄인다 */
+@media (max-width: 480px) {
+  .Header {
+    padding: 0 0.75rem;
+  }
+
+  .Header-left {
+    gap: 0.75rem;
+  }
+
+  .logo {
+    width: 6.5rem;
+  }
+
+  .nav-links {
+    gap: 0.5rem;
+  }
+
+  .nav-links a {
+    font-size: 0.8125rem;
+  }
+
+  .profile {
+    width: 2rem;
+  }
+}

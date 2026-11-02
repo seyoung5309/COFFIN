@@ -124,3 +124,59 @@
 .more-btn:hover {
   opacity: .9;
 }
+
+/* 1280 이하: 화살표를 슬라이더 여백 안으로 넣는다 (기본 위치 -2.5rem은 화면 밖으로 나감) */
+@media (max-width: 1280px) {
+  .arrow {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .arrow.left {
+    left: 0.25rem;
+  }
+
+  .arrow.right {
+    right: 0.25rem;
+  }
+
+  .more-btn {
+    margin-right: 1.5rem;
+  }
+}
+
+
+/* 700 이하 */
+@media (max-width: 700px) {
+  .caffeine-chart {
+    margin: 4rem auto;
+  }
+
+  .caffeine-chart__title h1 {
+    font-size: 2rem;
+  }
+
+  .caffeine-chart__title p {
+    font-size: 1.125rem;
+    padding: 0 1rem;
+  }
+
+  .ment {
+    margin-left: 1.5rem;
+  }
+
+  .caffeine-chart__slider {
+    padding: 1.5rem 3rem;
+  }
+
+  .arrow {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+  }
+
+  .more-btn {
+    margin: 2.5rem auto 0;
+  }
+}
