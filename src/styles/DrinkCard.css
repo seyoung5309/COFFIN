@@ -44,10 +44,17 @@
   gap: 0.5rem;
 }
 
+/* 이름이 길면 한 줄로 자르고 …, 가격은 줄바꿈 없이 */
 .coffee-card__name {
   font-size: 1rem;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .coffee-card__price {
   font-size: 0.875rem;
+  flex-shrink: 0;
+  white-space: nowrap;
 }

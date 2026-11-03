@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import "../styles/Coffee_Collection.css";
-import iimg from "../assets/ExCoffee.svg";
+import { getCoffeeBySugar } from "../services/chartService";
 
 // 화면 폭에 따라 한 번에 보여줄 카드 개수 (Coffee_Collection.css의 미디어 쿼리와 같은 기준)
 const MOBILE_QUERY = '(max-width: 700px)';
@@ -24,21 +24,31 @@ function useVisibleSlides() {
   return visibleSlides;
 }
 
+// 보여줄 커피 개수 (당류가 높은 순으로 위에서부터)
+const DRINK_COUNT = 6;
+
 function Coffee_Collection() {
-  const mockDrinks = [
-    { id: 1, name: '망고 스무디', img: iimg },
-    { id: 2, name: '딸기 라떼', img: iimg },
-    { id: 3, name: '초코 말차', img: iimg },
-    { id: 4, name: '바닐라 라떼', img: iimg },
-    { id: 5, name: '카페 모카', img: iimg },
-    { id: 6, name: '아메리카노', img: iimg },
-  ];
+  const [drinks, setDrinks] = useState([]);
+
+  // 당 땡길 때: 당류 높은 순 상위 6개
+  useEffect(() => {
+    let ignore = false;
+    getCoffeeBySugar().then(({ data, error }) => {
+      if (ignore) return;
+      if (error) {
+        console.error(error);
+        return;
+      }
+      setDrinks(data.slice(0, DRINK_COUNT));
+    });
+    return () => { ignore = true; };
+  }, []);
 
   // 한 번에 보여줄 카드 개수
   const visibleSlides = useVisibleSlides();
 
-  // 최대 슬라이드 위치
-  const maxSlide = mockDrinks.length - visibleSlides;
+  // 최대 슬라이드 위치 (카드가 보이는 수보다 적으면 0)
+  const maxSlide = Math.max(0, drinks.length - visibleSlides);
 
   // 현재 슬라이드 위치 (화면이 넓어져 maxSlide가 줄면 그 안으로 맞춘다)
   const [slideState, setCurrentSlide] = useState(0);
@@ -99,13 +109,14 @@ function Coffee_Collection() {
               transform: `translateX(calc(-${currentSlide} * (100% + var(--drink-gap)) / var(--visible)))`,
             }}
           >
-            {mockDrinks.map((drink) => (
+            {drinks.map((drink) => (
               <div
                 key={drink.id}
                 className="drink-card"
               >
                 <img
                   src={drink.img}
+                  alt={drink.name}
                   className="drink-image"
                 />
 

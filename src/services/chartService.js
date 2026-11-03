@@ -83,11 +83,11 @@ export const getLatestCoffee = async () => {
   return { data };
 };
 
-// 랜덤순 커피 목록 불러오기
+// 랜덤순 커피 목록 불러오기 (프랜차이즈 이름 포함)
 export const getRandomCoffee = async (limit = 10) => {
-  const { data, error } = await supabase.rpc("get_random_coffee", {
-    row_limit: limit,
-  });
+  const { data, error } = await supabase
+    .rpc("get_random_coffee", { row_limit: limit })
+    .select("*, franchise(name)");
 
   if (error) return { error };
   return { data };

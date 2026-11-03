@@ -1,25 +1,35 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DrinkCard from "../components/DrinkCard";
-import cimg from "../assets/COFFIN_logo.svg";
+import { getRandomCoffee } from "../services/chartService";
 import "../styles/Caffeine_chart.css";
 
 function Caffeine_chart() {
   const navigate = useNavigate();
   const listRef = useRef(null);
+  // status: "loading" | "done" | "error"
+  const [result, setResult] = useState({ status: "loading", coffees: [] });
 
-  const coffeeData = [
-    { id: 1, brand: "스타벅스", name: "민트 콜드 브루", caffeine: 415, price: 5500, img: cimg },
-    { id: 2, brand: "스타벅스", name: "아메리카노", caffeine: 150, price: 4500, img: cimg },
-    { id: 3, brand: "스타벅스", name: "카페라떼", caffeine: 75, price: 5000, img: cimg },
-    { id: 4, brand: "메가커피", name: "바닐라라떼", caffeine: 200, price: 3900, img: cimg },
-    { id: 5, brand: "컴포즈", name: "콜드브루", caffeine: 260, price: 4300, img: cimg },
-    { id: 6, brand: "빽다방", name: "원조커피", caffeine: 330, price: 3000, img: cimg },
-  ];
+  // 오늘의 추천 커피: 랜덤 10개
+  useEffect(() => {
+    let ignore = false;
+    getRandomCoffee(10).then(({ data, error }) => {
+      if (ignore) return;
+      if (error) {
+        console.error(error);
+        setResult({ status: "error", coffees: [] });
+        return;
+      }
+      const coffees = data.map((c) => ({ ...c, brand: c.franchise?.name ?? "" }));
+      setResult({ status: "done", coffees });
+    });
+    return () => { ignore = true; };
+  }, []);
 
   // 지금 화면에 다 보이는 카드 수만큼 넘긴다 (화면 폭에 따라 1~4개)
   const scrollPage = (dir) => {
     const list = listRef.current;
+    if (!list?.firstElementChild) return;
     const cardWidth = list.firstElementChild.offsetWidth;
     const gap = parseFloat(getComputedStyle(list).columnGap) || 0;
     const perPage = Math.max(1, Math.floor((list.clientWidth + gap) / (cardWidth + gap)));
@@ -48,7 +58,9 @@ function Caffeine_chart() {
         </button>
 
         <div className="coffee-list" ref={listRef}>
-          {coffeeData.map((coffee) => (
+          {result.status === "loading" && <p className="caffeine-chart__status">커피를 불러오는 중...</p>}
+          {result.status === "error" && <p className="caffeine-chart__status">커피 정보를 불러오지 못했어요.</p>}
+          {result.coffees.map((coffee) => (
             <DrinkCard
               key={coffee.id}
               coffee={coffee}
