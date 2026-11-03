@@ -201,7 +201,7 @@ if (error) {
 | `searchCoffee`         | `{ data: Coffee[] }`                        | `{ error }`  |
 | `getSortedCoffee`      | `{ data: Coffee[] }`                        | `{ error }`  |
 | `getPopularCoffee`     | `{ data: Coffee[] }` (likeCount 포함)       | `{ error }`  |
-| `getRandomCoffee`      | `{ data: Coffee[] }`                        | `{ error }`  |
+| `getRandomCoffee`      | `{ data: Coffee[] }` (franchise.name 포함)  | `{ error }`  |
 | `getLatestCoffee`      | `{ data: Coffee[] }`                        | `{ error }`  |
 | `getCoffeeBySugar`     | `{ data: Coffee[] }`                        | `{ error }`  |
 | `getRelatedCoffee`     | `{ data: Coffee[] }`                        | `{ error }`  |
@@ -228,6 +228,9 @@ if (error) {
 
   // getPopularCoffee 사용 시 추가
   likeCount: 32,
+
+  // getRandomCoffee 사용 시 추가
+  franchise: { name: "투썸플레이스" },
 }
 ```
 

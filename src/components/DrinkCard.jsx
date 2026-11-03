@@ -15,7 +15,7 @@ function DrinkCard({ coffee, onClick }) {
         </h3>
 
         <div className="coffee-card__bottom">
-          <span className="coffee-card__name">{coffee.name}</span>
+          <span className="coffee-card__name" title={coffee.name}>{coffee.name}</span>
           <span className="coffee-card__price">
             {coffee.price.toLocaleString()}원
           </span>

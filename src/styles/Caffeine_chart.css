@@ -55,6 +55,16 @@
   display: none;
 }
 
+/* 불러오는 중 / 실패 안내 (카드 높이만큼 자리를 잡아 레이아웃이 튀지 않게) */
+.caffeine-chart__status {
+  width: 100%;
+  min-height: 23.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+}
+
 /* ======================= */
 /* 화살표 */
 /* ======================= */
