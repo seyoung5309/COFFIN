@@ -1,0 +1,175 @@
+.coffee-detail {
+  width: 100%;
+  max-width: 75rem; /* 1200px */
+  margin: 0 auto;
+  padding: 2rem 1.5rem 6.25rem;
+}
+
+.coffee-detail__back {
+  padding: 0.5rem;
+  border: 0;
+  background: none;
+  color: #404040;
+  font-size: 1.75rem;
+  cursor: pointer;
+}
+
+.coffee-detail__back:focus-visible,
+.coffee-detail__franchise-btn:focus-visible {
+  outline: 2px solid #335e54;
+  outline-offset: 2px;
+}
+
+/* 불러오는 중 / 실패 안내 */
+.coffee-detail__status {
+  min-height: 24rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  text-align: center;
+}
+
+/* ======================= */
+/* 상세 카드 */
+/* ======================= */
+
+.coffee-detail__card {
+  display: flex;
+  margin-top: 1.5rem;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+}
+
+.coffee-detail__image {
+  flex: 0 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28rem;
+  background: #f7f8e4; /* 시안의 연노랑 배경: 디자인 값과 다르면 여기만 수정 */
+}
+
+.coffee-detail__image img {
+  max-width: 80%;
+  max-height: 24rem;
+  object-fit: contain;
+}
+
+.coffee-detail__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem 3.75rem;
+}
+
+.coffee-detail__brand {
+  color: #777;
+  font-size: 1rem;
+}
+
+.coffee-detail__name {
+  color: #000;
+  font-size: 1.75rem;
+  line-height: 1.3;
+}
+
+.coffee-detail__price {
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.coffee-detail__caffeine {
+  color: #42665d;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.coffee-detail__franchise-btn {
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #335e54;
+  border-radius: 999px;
+  background: #fff;
+  color: #335e54;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.coffee-detail__franchise-btn:hover {
+  opacity: 0.9;
+}
+
+.coffee-detail__intro {
+  margin-top: 0.5rem;
+  max-width: 32rem;
+  color: #777;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.coffee-detail__nutrition {
+  width: 100%;
+  max-width: 20rem;
+  margin-top: 0.5rem;
+  display: grid;
+  gap: 0.375rem;
+}
+
+.coffee-detail__nutrition-row {
+  display: flex;
+  justify-content: space-between;
+  color: #404040;
+  font-size: 0.9375rem;
+}
+
+.coffee-detail__nutrition-row dt {
+  color: #777;
+}
+
+/* ======================= */
+/* 연관 커피 */
+/* ======================= */
+
+.coffee-detail__related {
+  margin-top: 5rem;
+}
+
+.coffee-detail__related h2 {
+  color: #000;
+  font-size: 1.5rem;
+}
+
+/* 700 이하: 이미지와 정보를 세로로 쌓는다 */
+@media (max-width: 700px) {
+  .coffee-detail {
+    padding: 1rem 1rem 4rem;
+  }
+
+  .coffee-detail__card {
+    flex-direction: column;
+  }
+
+  .coffee-detail__image {
+    flex-basis: auto;
+    min-height: 16rem;
+  }
+
+  .coffee-detail__image img {
+    max-height: 14rem;
+  }
+
+  .coffee-detail__info {
+    padding: 1.5rem;
+  }
+
+  .coffee-detail__related {
+    margin-top: 3rem;
+  }
+}
