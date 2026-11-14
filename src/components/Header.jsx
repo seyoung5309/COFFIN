@@ -15,7 +15,7 @@ function Header() {
     const keyword = query.trim();
     if (!keyword) return;
 
-    navigate(`/caffeine-chart?${new URLSearchParams({ q: keyword })}`);
+    navigate("/cafe-details", { state: { searchQuery: keyword } });
     setQuery("");
   };
 
@@ -51,14 +51,14 @@ function Header() {
 
         <div className="Header-right">
           <form className="search-box" role="search" onSubmit={handleSearch}>
-            <button type="submit" aria-label="커피 검색">
+            <button type="submit" aria-label="카페 검색">
               <img src={Search_icon} alt="" />
             </button>
 
             <input
               type="search"
-              aria-label="커피 이름"
-              placeholder="커피 이름을 입력하세요"
+              aria-label="카페 검색어"
+              placeholder="검색어를 입력하세요"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
