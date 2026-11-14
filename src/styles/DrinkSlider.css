@@ -1,0 +1,84 @@
+.drink-slider {
+  position: relative;
+  padding: 2.5rem 3.75rem; /* 화살표가 화면 밖으로 나가지 않게 양옆 여백 */
+}
+
+.drink-slider__list {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.drink-slider__list::-webkit-scrollbar {
+  display: none;
+}
+
+.drink-slider__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 4.5rem;
+  height: 4.5rem;
+
+  border: 1px solid #ddd;
+  border-radius: 50%;
+
+  background: #fff;
+  cursor: pointer;
+
+  font-size: 2rem;
+  color: #555;
+
+  transition: 0.2s;
+
+  z-index: 100;
+}
+
+.drink-slider__arrow:hover {
+  background: #f5f5f5;
+}
+
+.drink-slider__arrow:focus-visible {
+  outline: 2px solid #335e54;
+  outline-offset: 2px;
+}
+
+.drink-slider__arrow--left {
+  left: -2.5rem;
+}
+
+.drink-slider__arrow--right {
+  right: -2.5rem;
+}
+
+/* 1280 이하: 화살표를 슬라이더 여백 안으로 넣는다 */
+@media (max-width: 1280px) {
+  .drink-slider__arrow {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .drink-slider__arrow--left {
+    left: 0.25rem;
+  }
+
+  .drink-slider__arrow--right {
+    right: 0.25rem;
+  }
+}
+
+/* 700 이하 */
+@media (max-width: 700px) {
+  .drink-slider {
+    padding: 1.5rem 3rem;
+  }
+
+  .drink-slider__arrow {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+  }
+}
