@@ -9,14 +9,18 @@ function Header() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const activeMenuPath =
+    location.pathname === "/cafe-details" && new URLSearchParams(location.search).has("q")
+      ? "/caffeine-chart"
+      : location.pathname;
 
   const handleSearch = (e) => {
-    if (e.key === "Enter" && query.trim()) {
-      navigate("/cafe-details",{
-        state: {searchQuery : query}
-      });
-      setQuery("");
-    }
+    e.preventDefault();
+    const keyword = query.trim();
+    if (!keyword) return;
+
+    navigate(`/cafe-details?${new URLSearchParams({ q: keyword })}`);
+    setQuery("");
   };
 
   const menus = [
@@ -41,7 +45,7 @@ function Header() {
               <Link
                 key={menu.path}
                 to={menu.path}
-                className={location.pathname === menu.path ? "active" : ""}
+                className={activeMenuPath === menu.path ? "active" : ""}
               >
                 {menu.name}
               </Link>
@@ -50,17 +54,19 @@ function Header() {
         </div>
 
         <div className="Header-right">
-          <div className="search-box">
-            <img src={Search_icon} alt="검색" />
+          <form className="search-box" role="search" onSubmit={handleSearch}>
+            <button type="submit" aria-label="커피 검색">
+              <img src={Search_icon} alt="" />
+            </button>
 
             <input
-              type="text"
+              type="search"
+              aria-label="커피 검색어"
               placeholder="검색어를 입력하세요"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={handleSearch}
             />
-          </div>
+          </form>
 
           <img className="profile" src={profile} alt="프로필" />
         </div>

@@ -32,3 +32,37 @@ body {
     font-size: 20px;
     font-weight: 600;
 }
+
+.cafe_searchResult--coffee {
+    width: min(75rem, 100%);
+    margin: 3rem auto 0;
+    padding: 0 1.5rem;
+}
+
+.cafe_searchResult--coffee #searchResult {
+    overflow-wrap: anywhere;
+}
+
+.cafe_searchResult--coffee #result {
+    margin-left: 0;
+}
+
+.coffee-search-results {
+    width: min(75rem, 100%);
+    min-height: 20rem;
+    margin: 0 auto 4rem;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
+    gap: 1.5rem;
+    align-content: start;
+}
+
+.coffee-search-results__link {
+    min-width: 0;
+    color: inherit;
+}
+
+.coffee-search-results__link .coffee-card {
+    width: 100%;
+}
