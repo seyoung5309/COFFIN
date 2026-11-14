@@ -9,6 +9,10 @@ function Header() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const activeMenuPath =
+    location.pathname === "/cafe-details" && new URLSearchParams(location.search).has("q")
+      ? "/caffeine-chart"
+      : location.pathname;
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -41,7 +45,7 @@ function Header() {
               <Link
                 key={menu.path}
                 to={menu.path}
-                className={location.pathname === menu.path ? "active" : ""}
+                className={activeMenuPath === menu.path ? "active" : ""}
               >
                 {menu.name}
               </Link>
