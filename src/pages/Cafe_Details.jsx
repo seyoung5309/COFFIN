@@ -7,7 +7,7 @@ import Cafe_Slider from "../components/Cafe_Slider";
 import CafeCard from "../components/CafeCard";
 import DrinkCard from "../components/DrinkCard";
 import { searchCafes } from "../services/kakaoService";
-import { searchCoffee } from "../services/chartService";
+import { getAllCoffee, searchCoffee } from "../services/chartService";
 import mc1 from "../assets/MoreCoffee1.svg";
 import mc2 from "../assets/MoreCoffee2.svg";
 
@@ -41,17 +41,17 @@ function ArrowButton() {
     );
 }
 
-function CafeResults({ searchQuery, coffeeSearch }) {
+function CafeResults({ searchQuery, coffeeSearch, showAllCoffee }) {
     // 결과가 어떤 검색어의 것인지 함께 저장해 로딩 상태를 계산한다.
     const [result, setResult] = useState({ query: null, items: [], error: false });
-    const loading = Boolean(searchQuery) && result.query !== searchQuery;
+    const loading = (Boolean(searchQuery) || showAllCoffee) && result.query !== searchQuery;
     const items = result.query === searchQuery ? result.items : [];
 
     useEffect(() => {
-        if (!searchQuery) return;
+        if (!searchQuery && !showAllCoffee) return;
         let ignore = false;
         const request = coffeeSearch
-            ? searchCoffee(searchQuery).then(({ data, error }) => {
+            ? (showAllCoffee ? getAllCoffee() : searchCoffee(searchQuery)).then(({ data, error }) => {
                 if (error) throw error;
                 return data;
             })
@@ -63,7 +63,7 @@ function CafeResults({ searchQuery, coffeeSearch }) {
                 if (!ignore) setResult({ query: searchQuery, items: [], error: true });
             });
         return () => { ignore = true; };
-    }, [searchQuery, coffeeSearch]);
+    }, [searchQuery, coffeeSearch, showAllCoffee]);
     const moreCoffee = [
         { brands: "스타벅스", name: "민트 콜드 브루", caffeine: 415, price: 5500, img: mc1 },
         { brands: "스타벅스", name: "민트 콜드 브루", caffeine: 415, price: 5500, img: mc2 },
@@ -77,13 +77,16 @@ function CafeResults({ searchQuery, coffeeSearch }) {
 
             <div className={`cafe_searchResult ${coffeeSearch ? "cafe_searchResult--coffee" : ""}`}>
                 <ArrowButton />
-                <h1 id="searchResult"><span id="result">'{searchQuery}'</span> {coffeeSearch ? "커피" : "카페"} 검색 결과</h1>
+                <h1 id="searchResult">
+                    {showAllCoffee ? "카페인 차트" : <><span id="result">'{searchQuery}'</span> {coffeeSearch ? "커피" : "카페"} 검색 결과</>}
+                </h1>
             </div>
 
-            {!searchQuery && <p className="cafe-card-status">검색어를 입력해 주세요.</p>}
+            {!searchQuery && !showAllCoffee && <p className="cafe-card-status">검색어를 입력해 주세요.</p>}
             {loading && <p className="cafe-card-status" role="status">검색 중...</p>}
             {!loading && result.error && <p className="cafe-card-status" role="alert">검색에 실패했어요. 잠시 후 다시 시도해 주세요.</p>}
             {!loading && !result.error && searchQuery && items.length === 0 && <p className="cafe-card-status">검색 결과가 없어요.</p>}
+            {!loading && !result.error && showAllCoffee && items.length === 0 && <p className="cafe-card-status">등록된 커피가 없어요.</p>}
             {coffeeSearch ? (
                 <div className="coffee-search-results">
                     {items.map((coffee) => (
@@ -108,10 +111,11 @@ function CafeResults({ searchQuery, coffeeSearch }) {
 function Cafe_Details() {
     const location = useLocation();
     const [params] = useSearchParams();
-    const coffeeSearch = params.has("q");
+    const coffeeSearch = location.pathname === "/caffeine-chart" || params.has("q");
     const searchQuery = (coffeeSearch ? params.get("q") : location.state?.searchQuery)?.trim() ?? "";
+    const showAllCoffee = location.pathname === "/caffeine-chart" && !searchQuery;
 
-    return <CafeResults key={`${coffeeSearch}:${searchQuery}`} searchQuery={searchQuery} coffeeSearch={coffeeSearch} />;
+    return <CafeResults key={`${coffeeSearch}:${showAllCoffee}:${searchQuery}`} searchQuery={searchQuery} coffeeSearch={coffeeSearch} showAllCoffee={showAllCoffee} />;
 }
 
 export default Cafe_Details

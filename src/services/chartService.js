@@ -2,7 +2,7 @@ import { supabase } from "../lib/supabaseClient";
 
 // 커피 전체 목록 불러오기
 export const getAllCoffee = async () => {
-  const { data, error } = await supabase.from("coffee").select("*");
+  const { data, error } = await supabase.from("coffee").select("*, franchise(name)");
 
   if (error) return { error };
   return { data };

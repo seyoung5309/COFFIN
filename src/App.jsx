@@ -15,9 +15,9 @@ function App() {
         <Route path="/promotion" element={<Promotion />} />
         <Route path="/cafe-details" element={<Cafe_Details />} />
         <Route path="/map" element={<Map />} />
+        <Route path="/caffeine-chart" element={<Cafe_Details />} />
         {/* 아직 페이지가 없는 메뉴는 준비 중 화면으로 연결 */}
         <Route path="/promotion/register" element={<Coming_Soon title="프로모션 등록을 준비 중이에요" />} />
-        <Route path="/caffeine-chart" element={<Coming_Soon title="카페인 차트를 준비 중이에요" />} />
         <Route path="/coffee/:id" element={<Coffee_Detail />} />
         <Route path="*" element={<Coming_Soon title="페이지를 찾을 수 없어요" desc="주소가 맞는지 확인해 주세요." />} />
       </Routes>
