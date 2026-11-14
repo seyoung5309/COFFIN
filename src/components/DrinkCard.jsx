@@ -17,7 +17,7 @@ function DrinkCard({ coffee, onClick }) {
         <div className="coffee-card__bottom">
           <span className="coffee-card__name" title={coffee.name}>{coffee.name}</span>
           <span className="coffee-card__price">
-            {coffee.price.toLocaleString()}원
+            {coffee.price != null ? `${coffee.price.toLocaleString()}원` : "가격 정보 없음"}
           </span>
         </div>
       </div>

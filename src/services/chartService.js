@@ -12,7 +12,7 @@ export const getAllCoffee = async () => {
 export const searchCoffee = async (keyword) => {
   const { data, error } = await supabase
     .from("coffee")
-    .select("*")
+    .select("*, franchise(name)")
     .ilike("name", `%${keyword}%`);
 
   if (error) return { error };
