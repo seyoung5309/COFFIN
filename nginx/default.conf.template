@@ -1,0 +1,29 @@
+server {
+    listen ${PORT};
+    listen [::]:${PORT};
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    gzip on;
+    gzip_types text/plain text/css application/javascript application/json image/svg+xml;
+    gzip_min_length 1024;
+
+    # Vite 빌드 산출물은 파일명에 해시가 붙으므로 장기 캐시
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
+    }
+
+    # index.html 은 항상 최신본을 받도록 캐시 금지
+    location = /index.html {
+        add_header Cache-Control "no-cache";
+    }
+
+    # SPA fallback: React Router 경로 새로고침 시 404 방지
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
